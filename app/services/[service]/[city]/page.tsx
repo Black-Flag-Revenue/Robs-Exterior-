@@ -9,13 +9,7 @@ import CTAStrip from "@/components/CTAStrip"
 import FAQ from "@/components/FAQ"
 
 export async function generateStaticParams() {
-  const params = []
-  for (const service of services) {
-    for (const city of cities) {
-      params.push({ service: service.slug, city: city.slug })
-    }
-  }
-  return params
+  return services.flatMap(s => cities.map(c => ({ service: s.slug, city: c.slug })))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ service: string; city: string }> }): Promise<Metadata> {
@@ -25,13 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   if (!service || !city) return {}
   return {
     title: `${service.name} in ${city.name}, IL | Rob's Exterior Services`,
-    description: `Professional ${service.name.toLowerCase()} in ${city.name}, IL. ${service.description} Serving ${city.name} and all of McHenry County. Text Rob for a free estimate.`,
-    keywords: [...service.keywords, `${service.name.toLowerCase()} ${city.name} IL`, `${service.name.toLowerCase()} ${city.name} Illinois`],
-    openGraph: {
-      title: `${service.name} in ${city.name}, IL | Rob's Exterior Services`,
-      description: `Professional ${service.name.toLowerCase()} in ${city.name}, IL. Text Rob for a free estimate.`,
-      url: `https://robsexterior.com/services/${serviceSlug}/${citySlug}`,
-    },
+    description: `Professional ${service.name.toLowerCase()} in ${city.name}, IL. ${service.description} Text Rob for a free estimate.`,
   }
 }
 
@@ -41,138 +29,116 @@ export default async function ServiceCityPage({ params }: { params: Promise<{ se
   const city = getCity(citySlug)
   if (!service || !city) notFound()
 
-  const localContext = city.serviceContext[service.slug] ?? service.description
+  const localContext = city.serviceContext?.[service.slug] ?? service.description
   const otherCities = cities.filter(c => c.slug !== city.slug).slice(0, 6)
-  const relatedServices = service.relatedServices.map(r => services.find(s => s.slug === r)).filter(Boolean)
-
-  // City-specific FAQs
+  const related = service.relatedServices.map(r => services.find(x => x.slug === r)).filter(Boolean)
   const cityFaqs = [
     ...service.faqs.slice(0, 3),
-    {
-      q: `Do you service ${city.name}, IL for ${service.name.toLowerCase()}?`,
-      a: `Yes — Rob's Exterior Services provides professional ${service.name.toLowerCase()} throughout ${city.name} and all of McHenry County, IL. Text Rob at (815) 451-0106 for a free estimate.`
-    },
-    {
-      q: `How far is ${city.name} from your base in Woodstock?`,
-      a: `${city.name} is ${city.distanceFromWoodstock} from Rob's home base in Woodstock, IL. Rob regularly serves ${city.name} and the surrounding area with the same quality and care he brings to every job throughout McHenry County.`
-    }
+    { q: `Do you service ${city.name}, IL for ${service.name.toLowerCase()}?`, a: `Yes — Rob's Exterior Services provides professional ${service.name.toLowerCase()} throughout ${city.name} and all of McHenry County, IL. Text Rob at (815) 451-0106 for a free estimate.` },
+    { q: `How far is ${city.name} from your base in Woodstock?`, a: `${city.name} is ${city.distanceFromWoodstock} from Rob's home base in Woodstock, IL. Rob regularly serves ${city.name} with the same quality he brings to every job throughout McHenry County.` },
   ]
+
+  const textMuted: React.CSSProperties = { fontSize: 17, color: 'rgba(255,255,255,0.55)', lineHeight: 1.85, marginBottom: 20 }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema(service, city)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(cityFaqs)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema([
-        { name: "Home", url: "/" },
-        { name: "Services", url: "/services" },
+        { name: "Home", url: "/" }, { name: "Services", url: "/services" },
         { name: service.name, url: `/services/${service.slug}` },
         { name: city.name, url: `/services/${service.slug}/${city.slug}` }
       ])) }} />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-24 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(201,168,76,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(201,168,76,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="relative z-10 max-w-5xl mx-auto px-6">
-          <nav aria-label="Breadcrumb" className="flex mb-8">
-            <ol className="flex items-center gap-2 text-xs text-white/30 tracking-wide flex-wrap">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li>/</li>
-              <li><Link href="/services" className="hover:text-white transition-colors">Services</Link></li>
-              <li>/</li>
-              <li><Link href={`/services/${service.slug}`} className="hover:text-white transition-colors">{service.name}</Link></li>
-              <li>/</li>
-              <li className="text-brand-gold">{city.name}, IL</li>
-            </ol>
-          </nav>
-          <p className="section-label mb-4">{city.name}, IL · McHenry County</p>
-          <h1 className="font-display font-black text-[clamp(40px,7vw,88px)] uppercase tracking-tight leading-[0.95] mb-6 text-white">
+      <section style={{ padding: '140px 0 80px', background: '#0A0A0A', position: 'relative' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <ol style={{ display: 'flex', gap: 8, fontSize: 12, color: 'rgba(255,255,255,0.3)', listStyle: 'none', marginBottom: 32, flexWrap: 'wrap' }}>
+            <li><Link href="/" style={{ color: 'rgba(255,255,255,0.3)' }}>Home</Link></li>
+            <li>/</li>
+            <li><Link href="/services" style={{ color: 'rgba(255,255,255,0.3)' }}>Services</Link></li>
+            <li>/</li>
+            <li><Link href={`/services/${service.slug}`} style={{ color: 'rgba(255,255,255,0.3)' }}>{service.name}</Link></li>
+            <li>/</li>
+            <li style={{ color: '#C9A84C' }}>{city.name}, IL</li>
+          </ol>
+          <p className="eyebrow" style={{ marginBottom: 20 }}>{city.name}, IL · {city.county}</p>
+          <h1 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,7vw,86px)', textTransform: 'uppercase', lineHeight: 0.95, letterSpacing: '-1px', color: '#fff', marginBottom: 20 }}>
             {service.name} in <span className="gold-text">{city.name}, IL</span>
           </h1>
-          <p className="text-brand-gold font-semibold text-lg mb-4 tracking-wide">{service.tagline}</p>
-          <p className="text-white/55 text-xl leading-relaxed mb-10 max-w-2xl">{service.heroDesc}</p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href="sms:+18154510106" className="bg-brand-gold text-brand-black font-display font-bold text-[14px] tracking-[2.5px] uppercase px-10 py-5 rounded-sm hover:bg-brand-gold-light transition-all flex items-center justify-center gap-3">
+          <p style={{ fontSize: 20, color: '#C9A84C', fontWeight: 600, marginBottom: 16 }}>{service.tagline}</p>
+          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, marginBottom: 40, maxWidth: 620 }}>{service.heroDesc}</p>
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+            <a href="sms:+18154510106" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 14, letterSpacing: '2.5px', textTransform: 'uppercase', background: '#C9A84C', color: '#0A0A0A', padding: '16px 40px', borderRadius: 3, display: 'inline-flex', alignItems: 'center', gap: 10 }}>
               📱 Text for a Free Quote
             </a>
-            <a href="tel:+18154510106" className="border border-white/20 text-white font-display font-bold text-[14px] tracking-[2.5px] uppercase px-10 py-5 rounded-sm hover:border-brand-gold hover:text-brand-gold transition-all flex items-center justify-center gap-3">
+            <a href="tel:+18154510106" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 14, letterSpacing: '2.5px', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', padding: '16px 40px', borderRadius: 3 }}>
               📞 (815) 451-0106
             </a>
           </div>
         </div>
       </section>
 
-      {/* Main content */}
-      <section className="py-24 bg-brand-dark">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <p className="section-label mb-4">{service.name} · {city.name}, IL</p>
-            <h2 className="font-display font-black text-4xl uppercase tracking-wide mb-6 text-white">
-              Why {city.name} Homeowners Choose <span className="gold-text">Rob</span>
-            </h2>
+      {/* Content */}
+      <section style={{ padding: '80px 0', background: '#0d0d0d' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(380px,1fr))', gap: 64, alignItems: 'start' }}>
+            <div>
+              <p className="eyebrow" style={{ marginBottom: 16 }}>{service.name} · {city.name}, IL</p>
+              <h2 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(28px,4vw,42px)', textTransform: 'uppercase', letterSpacing: '1px', color: '#fff', marginBottom: 28 }}>
+                Why {city.name} Homeowners Choose <span className="gold-text">Rob</span>
+              </h2>
+              <p style={textMuted}>{localContext}</p>
+              <p style={textMuted}>{city.localContext}</p>
 
-            {/* City-specific context */}
-            <p className="text-white/60 text-lg leading-relaxed mb-6">{localContext}</p>
-            <p className="text-white/60 text-lg leading-relaxed mb-6">{city.localContext}</p>
+              {/* City stats */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12, margin: '32px 0' }}>
+                {[{ v: city.population, l: 'Residents' },{ v: city.medianIncome, l: 'Med. Income' },{ v: city.homeValue, l: 'Home Value' }].map(stat => (
+                  <div key={stat.l} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 4, padding: '16px 12px', textAlign: 'center' }}>
+                    <div style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 15, color: '#C9A84C', lineHeight: 1.2 }}>{stat.v}</div>
+                    <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', letterSpacing: '1.5px', textTransform: 'uppercase', marginTop: 4 }}>{stat.l}</div>
+                  </div>
+                ))}
+              </div>
 
-            {/* City stats */}
-            <div className="grid grid-cols-3 gap-4 my-8">
-              <div className="bg-brand-card border border-brand-border rounded-sm p-4 text-center">
-                <div className="font-display font-black text-xl text-brand-gold">{city.population}</div>
-                <div className="text-[10px] text-white/30 tracking-[2px] uppercase mt-1">Residents</div>
-              </div>
-              <div className="bg-brand-card border border-brand-border rounded-sm p-4 text-center">
-                <div className="font-display font-black text-xl text-brand-gold">{city.medianIncome}</div>
-                <div className="text-[10px] text-white/30 tracking-[2px] uppercase mt-1">Median Income</div>
-              </div>
-              <div className="bg-brand-card border border-brand-border rounded-sm p-4 text-center">
-                <div className="font-display font-black text-xl text-brand-gold">{city.homeValue}</div>
-                <div className="text-[10px] text-white/30 tracking-[2px] uppercase mt-1">Avg Home Value</div>
-              </div>
-            </div>
-
-            {/* Long description */}
-            <div className="prose-dark mt-8">
               {service.longDescription.split('\n\n').map((para, i) => (
-                <p key={i} dangerouslySetInnerHTML={{ __html: para }} />
+                <p key={i} style={textMuted} dangerouslySetInnerHTML={{ __html: para.replace(/<strong>/g,'<strong style="color:#fff;font-weight:700">') }} />
               ))}
             </div>
-          </div>
 
-          {/* Image + benefits */}
-          <div className="flex flex-col gap-8">
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden border border-brand-border">
-              <Image src={service.image} alt={`${service.name} ${city.name} IL — Rob's Exterior Services`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold" />
-              <div className="absolute bottom-4 left-4 bg-brand-black/80 backdrop-blur-sm px-4 py-2 rounded-sm">
-                <p className="text-[10px] font-bold tracking-[2px] uppercase text-brand-gold">{service.name} · {city.name}, IL</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              <div style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', border: '1px solid #1e1e1e', aspectRatio: '4/3' }}>
+                <Image src={service.image} alt={`${service.name} ${city.name} IL`} fill style={{ objectFit: 'cover' }} sizes="(max-width: 1024px) 100vw, 50vw" />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 2, background: '#C9A84C' }} />
+                <div style={{ position: 'absolute', bottom: 12, left: 12, background: 'rgba(10,10,10,0.8)', backdropFilter: 'blur(8px)', padding: '6px 12px', borderRadius: 3 }}>
+                  <p style={{ fontFamily: 'Oswald, sans-serif', fontSize: 10, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A84C' }}>{service.name} · {city.name}, IL</p>
+                </div>
               </div>
-            </div>
 
-            <div className="bg-brand-card border border-brand-border rounded-sm p-8">
-              <h3 className="font-display font-bold text-lg uppercase tracking-wide text-white mb-6">What's Included</h3>
-              <ul className="flex flex-col gap-3">
-                {service.benefits.map((b, i) => (
-                  <li key={i} className="flex gap-3 text-sm text-white/60 leading-relaxed">
-                    <span className="w-5 h-5 bg-brand-gold rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-2.5 h-2.5 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </span>
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 4, padding: '28px 24px' }}>
+                <h3 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 14, textTransform: 'uppercase', letterSpacing: '3px', color: '#fff', marginBottom: 20 }}>What's Included</h3>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {service.benefits.map((b, i) => (
+                    <li key={i} style={{ display: 'flex', gap: 10, fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6 }}>
+                      <span style={{ width: 18, height: 18, background: '#C9A84C', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                      </span>
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* Nearby areas */}
-            <div className="bg-brand-card border border-brand-border rounded-sm p-6">
-              <h3 className="font-display font-bold text-sm uppercase tracking-[3px] text-brand-gold mb-4">Also Serving Near {city.name}</h3>
-              <div className="flex flex-wrap gap-2">
-                {otherCities.map(c => (
-                  <Link key={c.slug} href={`/services/${service.slug}/${c.slug}`} className="text-[11px] font-bold tracking-[1.5px] uppercase text-white/40 border border-brand-border px-3 py-1.5 rounded-sm hover:border-brand-gold hover:text-brand-gold transition-all">
-                    {c.name}
-                  </Link>
-                ))}
+              <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 4, padding: '20px 24px' }}>
+                <h3 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 11, textTransform: 'uppercase', letterSpacing: '3px', color: '#C9A84C', marginBottom: 14 }}>Also Serving Near {city.name}</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {otherCities.map(c => (
+                    <Link key={c.slug} href={`/services/${service.slug}/${c.slug}`} style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 10, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', border: '1px solid #2a2a2a', padding: '6px 12px', borderRadius: 3 }}>
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -180,42 +146,42 @@ export default async function ServiceCityPage({ params }: { params: Promise<{ se
       </section>
 
       {/* Process */}
-      <section className="py-24 bg-brand-black">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="section-label mb-4">Our Process</p>
-            <h2 className="font-display font-black text-4xl md:text-5xl uppercase tracking-wide">Simple. Fast. <span className="gold-text">Done Right.</span></h2>
+      <section style={{ padding: '80px 0', background: '#0A0A0A' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <p className="eyebrow" style={{ marginBottom: 16 }}>Our Process</p>
+            <h2 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(32px,5vw,52px)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Simple. Fast. <span className="gold-text">Done Right.</span>
+            </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 16 }}>
             {service.process.map((step, i) => (
-              <div key={i} className="bg-brand-card border border-brand-border rounded-sm p-8 text-center hover:border-brand-gold/30 transition-colors">
-                <div className="font-display font-black text-6xl text-brand-gold/10 mb-4 leading-none">{step.step}</div>
-                <h3 className="font-display font-bold text-lg uppercase tracking-wide text-white mb-3">{step.title}</h3>
-                <p className="text-white/45 text-sm leading-relaxed">{step.desc}</p>
+              <div key={i} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 4, padding: '36px 28px', textAlign: 'center' }}>
+                <div style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 56, color: 'rgba(201,168,76,0.1)', lineHeight: 1, marginBottom: 16 }}>{step.step}</div>
+                <h3 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 17, textTransform: 'uppercase', letterSpacing: '1px', color: '#fff', marginBottom: 12 }}>{step.title}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
       <FAQ faqs={cityFaqs} heading={`${service.name} in ${city.name} — FAQs`} />
 
-      {/* Related services */}
-      {relatedServices.length > 0 && (
-        <section className="py-20 bg-brand-dark">
-          <div className="max-w-7xl mx-auto px-6">
-            <p className="section-label mb-4">Also Available in {city.name}</p>
-            <h2 className="font-display font-black text-3xl uppercase tracking-wide mb-10">Related <span className="gold-text">Services</span></h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedServices.map(s => s && (
-                <Link key={s.slug} href={`/services/${s.slug}/${city.slug}`} className="group bg-brand-card border border-brand-border border-t-2 border-t-brand-gold rounded-sm p-8 hover:-translate-y-1 transition-all">
-                  <span className="text-3xl mb-4 block">{s.icon}</span>
-                  <h3 className="font-display font-bold text-xl uppercase tracking-wide text-white mb-3 group-hover:text-brand-gold transition-colors">
-                    {s.name} in {city.name}
-                  </h3>
-                  <p className="text-white/40 text-sm leading-relaxed mb-4">{s.description}</p>
-                  <span className="text-[11px] font-bold tracking-[2px] uppercase text-brand-gold">Learn More →</span>
+      {related.length > 0 && (
+        <section style={{ padding: '80px 0', background: '#0d0d0d' }}>
+          <div className="container">
+            <p className="eyebrow" style={{ marginBottom: 16 }}>Also Available in {city.name}</p>
+            <h2 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(28px,4vw,44px)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 40 }}>
+              Related <span className="gold-text">Services</span>
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
+              {related.map(rel => rel && (
+                <Link key={rel.slug} href={`/services/${rel.slug}/${city.slug}`} style={{ background: '#111', borderTop: '2px solid #C9A84C', border: '1px solid #1e1e1e', borderRadius: 4, padding: '32px 28px', textDecoration: 'none' }}>
+                  <span style={{ fontSize: 28, display: 'block', marginBottom: 16 }}>{rel.icon}</span>
+                  <h3 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 18, textTransform: 'uppercase', letterSpacing: '1px', color: '#fff', marginBottom: 10 }}>{rel.name} in {city.name}</h3>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: 16 }}>{rel.description}</p>
+                  <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A84C' }}>Learn More →</span>
                 </Link>
               ))}
             </div>
