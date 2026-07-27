@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --font-oswald: 'Oswald', sans-serif;
+  --font-lato: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0A0A0A;
+  color: #F5F5F0;
+  font-family: var(--font-lato);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 3px; }
+
+/* Reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: none; }
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible { opacity: 1; transform: none; }
+
+/* Gold gradient text */
+.gold-text {
+  background: linear-gradient(135deg, #C9A84C, #E8C96A, #C9A84C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section label */
+.section-label {
+  font-family: var(--font-oswald);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #C9A84C;
+}
+
+/* Diagonal texture overlay */
+.texture-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 48px,
+    rgba(255,255,255,0.015) 48px,
+    rgba(255,255,255,0.015) 49px
+  );
+  pointer-events: none;
+}
+
+/* Gold border glow */
+.gold-glow {
+  box-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+}
+
+/* Prose styling for long-form content */
+.prose-dark p {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #999;
+  margin-bottom: 20px;
+}
+.prose-dark p strong { color: #F5F5F0; }
+.prose-dark h2 {
+  font-family: var(--font-oswald);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: #F5F5F0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  margin-top: 48px;
+}
+.prose-dark h3 {
+  font-family: var(--font-oswald);
+  font-size: 22px;
+  font-weight: 600;
+  color: #C9A84C;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  margin-top: 36px;
+}
