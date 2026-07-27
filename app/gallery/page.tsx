@@ -37,6 +37,13 @@ const photos = [
   { src: "/images/patio 4.jpeg", alt: "Patio before pressure washing", label: "Pressure Washing · Before", w: 900, h: 1200 },
   { src: "/images/lawn_cleanup_5.jpg", alt: "Shrub trimming during", label: "Shrub Trimming · During", w: 900, h: 1200 },
   { src: "/images/lawn_cleanup_3.jpg", alt: "Overgrown bushes before cleanup", label: "Shrub Trimming · Before", w: 900, h: 1200 },
+  { src: "/images/deckstain2.jpg", alt: "Deck staining before and after Woodstock IL", label: "Deck Stain · Before & After", w: 900, h: 1200 },
+  { src: "/images/deckstain.jpg", alt: "Deck staining result Woodstock IL", label: "Deck Staining · After", w: 900, h: 1200 },
+  { src: "/images/deckstain3.jpg", alt: "Deck staining in progress", label: "Deck Staining · During", w: 900, h: 1200 },
+  { src: "/images/deckstain4.jpg", alt: "Deck staining Woodstock IL", label: "Deck Staining", w: 900, h: 1200 },
+  { src: "/images/deckwash2.jpg", alt: "Deck wash before and after", label: "Deck Wash · Before & After", w: 900, h: 1200 },
+  { src: "/images/deckwash3.jpg", alt: "Deck wash mold removal", label: "Deck Wash · Before & After", w: 900, h: 1200 },
+  { src: "/images/Deck wash.jpg", alt: "Deck pressure washing before after", label: "Deck Wash · Before & After", w: 900, h: 600 },
   { src: "/images/siding 10.jpeg", alt: "Siding algae before soft wash", label: "Soft Wash · Before", w: 900, h: 1200 },
 ]
 

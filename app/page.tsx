@@ -17,130 +17,128 @@ const reviews = [
   { text: "Great prices and great work ethic. Very honest and family oriented.", name: "Donna Stone", location: "Lilymoor, IL", initials: "DS" },
 ]
 
-const trustItems = [
-  "Locally Owned & Operated", "No Subcontractors", "100% Satisfaction Guaranteed",
-  "Free Estimates", "Serving McHenry County", "Family Owned", "5-Star Rated", "Woodstock, IL Based"
+const trustItems = ["Locally Owned & Operated", "No Subcontractors", "100% Satisfaction Guaranteed", "Free Estimates", "Serving McHenry County", "Family Owned", "5-Star Rated", "Woodstock, IL Based"]
+
+const galleryPhotos = [
+  { src: "/images/front of house 2 .jpeg", alt: "Soft wash result Woodstock IL", label: "Soft Wash · Curb Appeal", featured: true },
+  { src: "/images/exterior window 1 .jpeg", alt: "Window cleaning Woodstock IL", label: "Window Cleaning" },
+  { src: "/images/gutter 1 .jpeg", alt: "Gutter cleaning before Woodstock IL", label: "Gutter Cleaning · Before" },
+  { src: "/images/deckstain2.jpg", alt: "Deck staining result Woodstock IL", label: "Deck Staining · After" },
+  { src: "/images/roof_wash_1.jpeg", alt: "Roof washing before and after", label: "Roof Washing" },
+  { src: "/images/patio 3 .jpeg", alt: "Pressure washing patio Woodstock IL", label: "Pressure Washing" },
 ]
 
 export default function Home() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-black">
-        {/* Grid texture */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(201,168,76,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(201,168,76,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(27,52,97,0.5)_0%,transparent_70%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(201,168,76,0.06)_0%,transparent_60%)]" />
+      {/* ── HERO ── */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px)',
+          backgroundSize: '60px 60px'
+        }} />
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(27,52,97,0.4) 0%, transparent 70%)'
+        }} />
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 60%)'
+        }} />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-32 pb-20">
-          {/* Logo */}
           <div className="flex justify-center mb-10">
-            <Image
-              src="/images/logo transparent.png"
-              alt="Rob's Exterior Services"
-              width={320}
-              height={130}
-              className="h-28 md:h-36 w-auto"
-              priority
-            />
+            <Image src="/images/logo transparent.png" alt="Rob's Exterior Services" width={300} height={120}
+              className="h-28 md:h-36 w-auto object-contain" priority />
           </div>
 
-          {/* Eyebrow */}
-          <p className="section-label mb-6 flex items-center justify-center gap-4">
-            <span className="w-16 h-px bg-brand-gold/40" />
+          <p className="section-label mb-6 flex items-center justify-center gap-4 text-[#C9A84C]">
+            <span className="w-12 h-px bg-[#C9A84C]/40" />
             Woodstock's Exterior Experts
-            <span className="w-16 h-px bg-brand-gold/40" />
+            <span className="w-12 h-px bg-[#C9A84C]/40" />
           </p>
 
-          {/* Headline */}
-          <h1 className="font-display font-black text-white uppercase leading-[0.95] mb-6">
-            <span className="block text-[clamp(52px,9vw,110px)] tracking-tight">Your Home.</span>
-            <span className="block text-[clamp(52px,9vw,110px)] tracking-tight gold-text">Our Standards.</span>
+          <h1 className="text-white uppercase leading-[0.92] mb-6 tracking-tight" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(52px,9vw,108px)' }}>
+            Your Home.<br />
+            <span className="gold-text">Our Standards.</span>
           </h1>
 
-          {/* Divider */}
           <div className="flex items-center gap-4 justify-center my-8">
-            <span className="w-20 h-px bg-gradient-to-r from-transparent to-brand-gold/60" />
-            <span className="text-brand-gold/50 text-[9px] tracking-[4px] uppercase">Woodstock, Illinois</span>
-            <span className="w-20 h-px bg-gradient-to-l from-transparent to-brand-gold/60" />
+            <span className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.5))' }} />
+            <span className="text-[#C9A84C]/50 text-[9px] tracking-[4px] uppercase">Woodstock, Illinois</span>
+            <span className="w-16 h-px" style={{ background: 'linear-gradient(to left, transparent, rgba(201,168,76,0.5))' }} />
           </div>
 
-          <p className="text-white/55 text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
+          <p className="text-white/50 text-lg leading-relaxed mb-12 max-w-2xl mx-auto">
             Gutter cleaning · Soft washing · Roof washing · Window cleaning · Pressure washing · Deck staining · Lawn care — done right, every time.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="sms:+18154510106"
-              className="bg-brand-gold text-brand-black font-display font-bold text-[15px] tracking-[2.5px] uppercase px-12 py-5 rounded-sm hover:bg-brand-gold-light transition-all hover:-translate-y-0.5 shadow-[0_4px_24px_rgba(201,168,76,0.35)] flex items-center justify-center gap-3"
+            <a href="sms:+18154510106"
+              className="inline-flex items-center justify-center gap-3 text-[#0A0A0A] font-bold text-[14px] tracking-[2.5px] uppercase px-12 py-5 rounded-sm transition-all hover:-translate-y-0.5"
+              style={{ fontFamily: 'Oswald, sans-serif', background: '#C9A84C', boxShadow: '0 4px 24px rgba(201,168,76,0.4)' }}
             >
               📱 Text for a Free Quote
             </a>
-            <Link
-              href="/services"
-              className="border border-white/20 text-white font-display font-bold text-[15px] tracking-[2.5px] uppercase px-12 py-5 rounded-sm hover:border-brand-gold hover:text-brand-gold transition-all flex items-center justify-center gap-3"
+            <Link href="/services"
+              className="inline-flex items-center justify-center gap-3 text-white font-bold text-[14px] tracking-[2.5px] uppercase px-12 py-5 rounded-sm border border-white/20 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
+              style={{ fontFamily: 'Oswald, sans-serif' }}
             >
               View Our Services
             </Link>
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20">
           <span className="text-[9px] tracking-[4px] uppercase">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-brand-gold/50 to-transparent animate-pulse" />
+          <div className="w-px h-10 bg-gradient-to-b from-[#C9A84C]/50 to-transparent animate-pulse" />
         </div>
       </section>
 
-      {/* TRUST TICKER */}
-      <div className="bg-[#080808] border-y border-brand-gold/20 py-4 overflow-hidden">
-        <div className="flex animate-[ticker_25s_linear_infinite] w-max">
+      {/* ── TRUST TICKER ── */}
+      <div className="bg-[#060606] border-y border-[#C9A84C]/20 py-4 overflow-hidden">
+        <div className="flex animate-ticker w-max">
           {[...trustItems, ...trustItems].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 px-12 whitespace-nowrap">
-              <div className="w-1.5 h-1.5 bg-brand-gold rotate-45 flex-shrink-0" />
-              <span className="text-white/50 text-[11px] font-bold tracking-[3px] uppercase">{item}</span>
+            <div key={i} className="flex items-center gap-3 px-10 whitespace-nowrap">
+              <div className="w-1.5 h-1.5 bg-[#C9A84C] rotate-45 flex-shrink-0" />
+              <span className="text-white/45 text-[11px] font-bold tracking-[3px] uppercase">{item}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* SERVICES SECTION */}
-      <section className="py-28 bg-brand-black relative">
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_80%_50%_at_50%_100%,rgba(27,52,97,0.4),transparent)]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6">
+      {/* ── SERVICES ── */}
+      <section className="py-28 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-20">
             <p className="section-label mb-4">What We Do</p>
-            <h2 className="font-display font-black text-[clamp(36px,5vw,64px)] uppercase tracking-wide text-white mb-6">
+            <h2 className="text-white uppercase tracking-wide mb-6 leading-tight" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,5vw,64px)' }}>
               Full-Service <span className="gold-text">Exterior</span> Care
             </h2>
-            <p className="text-white/50 text-lg max-w-2xl mx-auto leading-relaxed">
-              From the roof to the driveway, Rob handles everything on the outside of your home — so you don't have to.
+            <p className="text-white/45 text-lg max-w-xl mx-auto leading-relaxed">
+              From the roof to the driveway, Rob handles everything on the outside of your home.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {services.map((service, i) => (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className="group bg-brand-card border border-brand-border hover:border-brand-gold/40 rounded-sm p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(201,168,76,0.1)] relative overflow-hidden"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {services.map((service) => (
+              <Link key={service.slug} href={`/services/${service.slug}`}
+                className="group bg-[#111] border border-[#1e1e1e] hover:border-[#C9A84C]/40 rounded-sm p-7 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden"
+                style={{ boxShadow: '0 0 0 0 rgba(201,168,76,0)' }}
               >
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-[#C9A84C] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 <span className="text-3xl">{service.icon}</span>
-                <div>
-                  <h3 className="font-display font-bold text-[17px] text-white uppercase tracking-wide mb-2 group-hover:text-brand-gold transition-colors">
+                <div className="flex-1">
+                  <h3 className="font-bold text-[16px] text-white uppercase tracking-wide mb-2 group-hover:text-[#C9A84C] transition-colors" style={{ fontFamily: 'Oswald, sans-serif' }}>
                     {service.name}
                   </h3>
-                  <p className="text-white/40 text-sm leading-relaxed">{service.description}</p>
+                  <p className="text-white/35 text-sm leading-relaxed">{service.tagline}</p>
                 </div>
                 {service.startingPrice && (
-                  <div className="mt-auto">
-                    <span className="text-[10px] text-white/30 uppercase tracking-[2px]">Starting from</span>
-                    <div className="font-display font-bold text-2xl text-brand-gold">{service.startingPrice}</div>
+                  <div>
+                    <span className="text-[9px] text-white/25 uppercase tracking-[2px]">Starting from</span>
+                    <div className="font-bold text-2xl text-[#C9A84C]" style={{ fontFamily: 'Oswald, sans-serif' }}>{service.startingPrice}</div>
                   </div>
                 )}
-                <span className="text-[11px] font-bold tracking-[2px] uppercase text-brand-gold/60 group-hover:text-brand-gold transition-colors">
+                <span className="text-[11px] font-bold tracking-[2px] uppercase text-[#C9A84C]/50 group-hover:text-[#C9A84C] transition-colors" style={{ fontFamily: 'Oswald, sans-serif' }}>
                   Learn More →
                 </span>
               </Link>
@@ -149,19 +147,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT STRIP */}
-      <section className="py-28 bg-brand-dark">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* ── ABOUT ── */}
+      <section className="py-28 bg-[#0d0d0d]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="section-label mb-4">About Rob</p>
-            <h2 className="font-display font-black text-[clamp(36px,5vw,56px)] uppercase tracking-wide leading-tight mb-8">
-              Local. Reliable. <span className="gold-text">Trusted.</span>
+            <h2 className="text-white uppercase tracking-wide leading-tight mb-8" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,5vw,56px)' }}>
+              Local. Reliable.<br /><span className="gold-text">Trusted.</span>
             </h2>
-            <p className="text-white/60 text-lg leading-relaxed mb-6">
+            <p className="text-white/55 text-lg leading-relaxed mb-5">
               Robert Morales built Rob's Exterior Services on a simple idea — <strong className="text-white">if your name is on it, you do it right.</strong> As a husband and father of four daughters rooted right here in Woodstock, IL, Rob treats every property like it's his own.
             </p>
-            <p className="text-white/60 text-lg leading-relaxed mb-10">
-              No subcontractors. No shortcuts. When you hire Rob, Rob shows up — and doesn't leave until the job meets his standard, which happens to be the same standard he holds for his own home.
+            <p className="text-white/55 text-lg leading-relaxed mb-10">
+              No subcontractors. No shortcuts. When you hire Rob, <strong className="text-white">Rob shows up.</strong>
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-10">
@@ -171,80 +169,70 @@ export default function Home() {
                 { num: "5★", label: "Rated Locally" },
                 { num: "9", label: "Cities Served" },
               ].map(stat => (
-                <div key={stat.label} className="border-l-2 border-brand-gold pl-4 py-2">
-                  <div className="font-display font-black text-3xl text-white">{stat.num}</div>
-                  <div className="text-xs text-white/40 tracking-[2px] uppercase mt-1">{stat.label}</div>
+                <div key={stat.label} className="border-l-2 border-[#C9A84C] pl-4 py-1">
+                  <div className="font-black text-3xl text-white" style={{ fontFamily: 'Oswald, sans-serif' }}>{stat.num}</div>
+                  <div className="text-[10px] text-white/30 tracking-[2px] uppercase mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
 
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-3 font-display font-bold text-[13px] tracking-[2px] uppercase text-brand-gold border border-brand-gold/40 px-8 py-4 rounded-sm hover:bg-brand-gold hover:text-brand-black transition-all"
+            <Link href="/about"
+              className="inline-flex items-center gap-3 font-bold text-[13px] tracking-[2px] uppercase text-[#C9A84C] border border-[#C9A84C]/40 px-8 py-4 rounded-sm hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all"
+              style={{ fontFamily: 'Oswald, sans-serif' }}
             >
               Meet Rob →
             </Link>
           </div>
 
           <div className="relative">
-            <div className="aspect-[4/5] relative rounded-sm overflow-hidden border border-brand-border">
-              <Image
-                src="/images/rob_photo.jpg"
-                alt="Robert Morales — Owner of Rob's Exterior Services Woodstock IL"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-black/50 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-gold" />
+            <div className="aspect-[4/5] relative rounded-sm overflow-hidden border border-[#1e1e1e]">
+              <Image src="/images/rob_photo.jpg" alt="Robert Morales — Owner of Rob's Exterior Services Woodstock IL"
+                fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.4), transparent)' }} />
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#C9A84C]" />
             </div>
-            <div className="absolute -bottom-5 -right-5 w-28 h-28 bg-brand-gold rounded-full flex items-center justify-center flex-col text-center shadow-[0_8px_32px_rgba(201,168,76,0.5)]">
-              <span className="font-display font-bold text-brand-black text-sm leading-tight">Locally<br/>Owned</span>
-              <span className="text-brand-black/60 text-[9px] tracking-wide uppercase mt-1">Woodstock IL</span>
+            <div className="absolute -bottom-5 -right-5 w-28 h-28 rounded-full flex items-center justify-center flex-col text-center"
+              style={{ background: '#C9A84C', boxShadow: '0 8px 32px rgba(201,168,76,0.5)' }}>
+              <span className="font-bold text-[#0A0A0A] text-xs leading-tight" style={{ fontFamily: 'Oswald, sans-serif' }}>Locally<br/>Owned</span>
+              <span className="text-[#0A0A0A]/60 text-[8px] tracking-wide uppercase mt-1">Woodstock IL</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* GALLERY PREVIEW */}
-      <section className="py-28 bg-brand-black">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ── GALLERY PREVIEW ── */}
+      <section className="py-28 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="section-label mb-4">Before & After</p>
-            <h2 className="font-display font-black text-[clamp(36px,5vw,64px)] uppercase tracking-wide">
+            <h2 className="text-white uppercase tracking-wide" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,5vw,64px)' }}>
               The Work <span className="gold-text">Speaks</span>
             </h2>
           </div>
+
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-10">
-            {[
-              { src: "/images/front of house 2 .jpeg", alt: "Soft wash curb appeal result Woodstock IL", label: "Soft Wash · Curb Appeal", featured: true },
-              { src: "/images/exterior window 1 .jpeg", alt: "Professional window cleaning Woodstock IL", label: "Window Cleaning", featured: false },
-              { src: "/images/gutter 1 .jpeg", alt: "Gutter cleaning before Woodstock IL", label: "Gutter Cleaning · Before", featured: false },
-              { src: "/images/roof_wash_1.jpeg", alt: "Deck staining result Woodstock IL", label: "Deck Staining · After", featured: false },
-              { src: "/images/roof_wash_1.jpeg", alt: "Roof washing before and after", label: "Roof Washing", featured: false },
-              { src: "/images/patio 3 .jpeg", alt: "Pressure washing patio Woodstock IL", label: "Pressure Washing", featured: false },
-            ].map((photo, i) => (
-              <div key={i} className={`relative overflow-hidden rounded-sm group cursor-pointer ${photo.featured ? 'md:col-span-2 aspect-[16/9]' : 'aspect-[4/3]'}`}>
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
+            {galleryPhotos.map((photo, i) => (
+              <div key={i} className={`relative overflow-hidden rounded-sm group ${photo.featured ? 'md:col-span-2 aspect-video' : 'aspect-[4/3]'}`}>
+                <Image src={photo.src} alt={photo.alt} fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 768px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.8), transparent)' }} />
                 <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                  <span className="text-[10px] font-bold tracking-[2px] uppercase text-brand-gold bg-brand-black/70 px-3 py-1.5 rounded-sm">
+                  <span className="text-[10px] font-bold tracking-[2px] uppercase text-[#C9A84C] bg-[#0A0A0A]/70 px-3 py-1.5 rounded-sm"
+                    style={{ fontFamily: 'Oswald, sans-serif' }}>
                     {photo.label}
                   </span>
                 </div>
               </div>
             ))}
           </div>
+
           <div className="text-center">
-            <Link
-              href="/gallery"
-              className="inline-flex items-center gap-3 border border-brand-gold/40 text-brand-gold font-display font-bold text-[13px] tracking-[2.5px] uppercase px-10 py-4 rounded-sm hover:bg-brand-gold hover:text-brand-black transition-all"
+            <Link href="/gallery"
+              className="inline-flex items-center gap-3 border border-[#C9A84C]/40 text-[#C9A84C] font-bold text-[13px] tracking-[2.5px] uppercase px-10 py-4 rounded-sm hover:bg-[#C9A84C] hover:text-[#0A0A0A] transition-all"
+              style={{ fontFamily: 'Oswald, sans-serif' }}
             >
               View All Photos →
             </Link>
@@ -252,41 +240,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="py-28 bg-brand-dark">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ── REVIEWS ── */}
+      <section className="py-28 bg-[#0d0d0d]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="section-label mb-4">What Neighbors Say</p>
-            <h2 className="font-display font-black text-[clamp(36px,5vw,64px)] uppercase tracking-wide">
+            <h2 className="text-white uppercase tracking-wide" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,5vw,64px)' }}>
               Real <span className="gold-text">Reviews</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {reviews.map((r, i) => (
-              <ReviewCard key={i} {...r} delay={i * 100} />
-            ))}
+            {reviews.map((r, i) => <ReviewCard key={i} {...r} delay={i * 100} />)}
           </div>
         </div>
       </section>
 
-      {/* SERVICE AREAS */}
-      <section className="py-28 bg-brand-black">
-        <div className="max-w-7xl mx-auto px-6">
+      {/* ── SERVICE AREAS ── */}
+      <section className="py-28 bg-[#0A0A0A]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <p className="section-label mb-4">Where We Work</p>
-            <h2 className="font-display font-black text-[clamp(36px,5vw,64px)] uppercase tracking-wide">
+            <h2 className="text-white uppercase tracking-wide mb-4" style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(36px,5vw,64px)' }}>
               Serving All of <span className="gold-text">McHenry County</span>
             </h2>
-            <p className="text-white/40 mt-4 text-lg max-w-xl mx-auto">
-              Rob covers Woodstock and every major community throughout McHenry County, IL.
-            </p>
+            <p className="text-white/35 text-lg max-w-lg mx-auto">Rob covers Woodstock and every major community throughout McHenry County, IL.</p>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
             {cities.map(city => (
-              <Link
-                key={city.slug}
-                href={`/locations/${city.slug}`}
-                className="font-display font-semibold text-[12px] tracking-[2px] uppercase text-white/50 border border-brand-border px-5 py-3 rounded-sm hover:border-brand-gold hover:text-brand-gold transition-all"
+              <Link key={city.slug} href={`/locations/${city.slug}`}
+                className="font-bold text-[11px] tracking-[2px] uppercase text-white/40 border border-[#2a2a2a] px-5 py-3 rounded-sm hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
+                style={{ fontFamily: 'Oswald, sans-serif' }}
               >
                 {city.name}, IL
               </Link>
