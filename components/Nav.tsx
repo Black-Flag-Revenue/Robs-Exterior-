@@ -27,7 +27,7 @@ export default function Nav() {
         {/* Logo */}
         <Link href="/" className="flex items-center" aria-label="Rob's Exterior Services home">
           <Image
-            src="/images/logo.png"
+            src="/images/logo transparent.png"
             alt="Rob's Exterior Services"
             width={160}
             height={60}

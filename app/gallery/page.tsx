@@ -8,24 +8,36 @@ export const metadata: Metadata = {
 }
 
 const photos = [
-  { src: "/images/front of house 2 .jpeg", alt: "Soft wash curb appeal Woodstock IL", label: "Soft Wash · Curb Appeal", cat: "Soft Washing", featured: true },
-  { src: "/images/exterior window 1 .jpeg", alt: "Window cleaning Woodstock IL", label: "Window Cleaning", cat: "Windows" },
-  { src: "/images/gutter 1 .jpeg", alt: "Gutter cleaning before Woodstock IL", label: "Gutter Cleaning · Before", cat: "Gutters" },
-  { src: "/images/deckstain2.jpg", alt: "Deck staining Woodstock IL", label: "Deck Staining · After", cat: "Deck" },
-  { src: "/images/roof_wash_1.jpeg", alt: "Roof washing before and after", label: "Roof Washing", cat: "Roof Wash", featured: true },
-  { src: "/images/patio 3 .jpeg", alt: "Pressure washing patio Woodstock IL", label: "Pressure Washing", cat: "Pressure Wash" },
-  { src: "/images/housewash 1.jpeg", alt: "House soft wash Woodstock IL", label: "House Wash · After", cat: "Soft Washing" },
-  { src: "/images/front of house 3 .jpeg", alt: "Curb appeal Woodstock IL", label: "Curb Appeal · After", cat: "Soft Washing" },
-  { src: "/images/gutter 2 .jpeg", alt: "Clogged gutters before", label: "Gutter Cleaning · Before", cat: "Gutters" },
-  { src: "/images/exterior window 2 .jpeg", alt: "Window cleaning residential", label: "Window Cleaning", cat: "Windows" },
-  { src: "/images/deckstain.jpg", alt: "Deck staining before and after", label: "Deck Stain · Before & After", cat: "Deck" },
-  { src: "/images/deckwash2.jpg", alt: "Deck wash before and after", label: "Deck Wash · Before & After", cat: "Deck" },
-  { src: "/images/lawn_cleanup_6.jpg", alt: "Lawn cleanup Woodstock IL", label: "Lawn Clean-Up", cat: "Lawn" },
-  { src: "/images/roof_wash_3.jpeg", alt: "Roof washing in progress", label: "Roof Washing · In Progress", cat: "Roof Wash" },
-  { src: "/images/siding 9.jpeg", alt: "Siding before soft wash", label: "Soft Wash · Before", cat: "Soft Washing" },
-  { src: "/images/patio 1.jpeg", alt: "Patio pressure washing", label: "Pressure Washing · Patio", cat: "Pressure Wash" },
-  { src: "/images/siding 1 .jpeg", alt: "Siding after soft wash", label: "Soft Wash · After", cat: "Soft Washing" },
-  { src: "/images/deckstain4.jpg", alt: "Deck staining in progress", label: "Deck Staining · In Progress", cat: "Deck" },
+  { src: "/images/front of house 2 .jpeg", alt: "Soft wash curb appeal Woodstock IL", label: "Soft Wash · Curb Appeal", w: 900, h: 1200 },
+  { src: "/images/exterior window 1 .jpeg", alt: "Window cleaning Woodstock IL", label: "Window Cleaning", w: 900, h: 1200 },
+  { src: "/images/gutter 1 .jpeg", alt: "Gutter cleaning before Woodstock IL", label: "Gutter Cleaning · Before", w: 900, h: 1200 },
+  { src: "/images/roof_wash_1.jpeg", alt: "Roof washing before and after", label: "Roof Washing · Before & After", w: 900, h: 600 },
+  { src: "/images/patio 3 .jpeg", alt: "Pressure washing patio Woodstock IL", label: "Pressure Washing", w: 900, h: 1200 },
+  { src: "/images/housewash 1.jpeg", alt: "House soft wash Woodstock IL", label: "House Wash · After", w: 900, h: 1200 },
+  { src: "/images/front of house 3 .jpeg", alt: "Curb appeal Woodstock IL", label: "Curb Appeal · After", w: 900, h: 1200 },
+  { src: "/images/gutter 2 .jpeg", alt: "Clogged gutters before", label: "Gutter Cleaning · Before", w: 900, h: 1200 },
+  { src: "/images/exterior window 2 .jpeg", alt: "Window cleaning residential", label: "Window Cleaning", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_6.jpg", alt: "Lawn cleanup Woodstock IL", label: "Lawn Clean-Up · After", w: 900, h: 1200 },
+  { src: "/images/roof_wash_3.jpeg", alt: "Roof washing in progress", label: "Roof Washing · In Progress", w: 900, h: 600 },
+  { src: "/images/siding 9.jpeg", alt: "Siding before soft wash", label: "Soft Wash · Before", w: 900, h: 1200 },
+  { src: "/images/patio 1.jpeg", alt: "Patio pressure washing", label: "Pressure Washing · Patio", w: 900, h: 1200 },
+  { src: "/images/siding 1 .jpeg", alt: "Siding after soft wash", label: "Soft Wash · After", w: 900, h: 1200 },
+  { src: "/images/front of house 1 .jpeg", alt: "Home exterior Woodstock IL", label: "Soft Wash · Curb Appeal", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_1.jpeg", alt: "Lawn cleanup trimming", label: "Lawn Clean-Up", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_2.jpg", alt: "Shrub trimming before", label: "Shrub Trimming · Before", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_4.jpg", alt: "Yard cleanup before", label: "Lawn Clean-Up · Before", w: 900, h: 1200 },
+  { src: "/images/roof_wash_2.jpg", alt: "Roof wash before after", label: "Roof Washing · Before & After", w: 900, h: 600 },
+  { src: "/images/exterior window 3 .jpeg", alt: "Commercial window cleaning", label: "Commercial Windows", w: 900, h: 1200 },
+  { src: "/images/housewash 2 .jpeg", alt: "House wash after", label: "House Wash · After", w: 900, h: 1200 },
+  { src: "/images/patio 2 .jpeg", alt: "Patio pressure washed", label: "Pressure Washing · After", w: 900, h: 1200 },
+  { src: "/images/siding 6.jpeg", alt: "Siding mold before soft wash", label: "Soft Wash · Before", w: 900, h: 1200 },
+  { src: "/images/siding 3 .jpeg", alt: "Siding after soft wash", label: "Soft Wash · After", w: 900, h: 1200 },
+  { src: "/images/garage 1.jpeg", alt: "Gutter detail inspection", label: "Gutter Detail", w: 900, h: 1200 },
+  { src: "/images/e99a34d5-e4f9-45f4-873d-17003588d4db.jpeg", alt: "Severely clogged gutters before", label: "Gutter Cleaning · Before", w: 900, h: 1200 },
+  { src: "/images/patio 4.jpeg", alt: "Patio before pressure washing", label: "Pressure Washing · Before", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_5.jpg", alt: "Shrub trimming during", label: "Shrub Trimming · During", w: 900, h: 1200 },
+  { src: "/images/lawn_cleanup_3.jpg", alt: "Overgrown bushes before cleanup", label: "Shrub Trimming · Before", w: 900, h: 1200 },
+  { src: "/images/siding 10.jpeg", alt: "Siding algae before soft wash", label: "Soft Wash · Before", w: 900, h: 1200 },
 ]
 
 export default function GalleryPage() {
@@ -50,8 +62,8 @@ export default function GalleryPage() {
                 <Image
                   src={photo.src}
                   alt={photo.alt}
-                  width={800}
-                  height={600}
+                  width={photo.w}
+                  height={photo.h}
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                   loading={i < 6 ? "eager" : "lazy"}
                 />

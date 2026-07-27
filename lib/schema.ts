@@ -13,7 +13,7 @@ export function localBusinessSchema() {
     "founder": { "@type": "Person", "name": "Robert Morales" },
     "priceRange": "$$",
     "image": "https://robsexterior.com/images/og-image.jpg",
-    "logo": "https://robsexterior.com/images/logo.png",
+    "logo": "https://robsexterior.com/images/logo transparent.png",
     "slogan": "Woodstock's Exterior Experts",
     "address": {
       "@type": "PostalAddress",

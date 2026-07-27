@@ -37,7 +37,7 @@ export default function Home() {
           {/* Logo */}
           <div className="flex justify-center mb-10">
             <Image
-              src="/images/logo.png"
+              src="/images/logo transparent.png"
               alt="Rob's Exterior Services"
               width={320}
               height={130}
@@ -220,7 +220,7 @@ export default function Home() {
               { src: "/images/front of house 2 .jpeg", alt: "Soft wash curb appeal result Woodstock IL", label: "Soft Wash · Curb Appeal", featured: true },
               { src: "/images/exterior window 1 .jpeg", alt: "Professional window cleaning Woodstock IL", label: "Window Cleaning", featured: false },
               { src: "/images/gutter 1 .jpeg", alt: "Gutter cleaning before Woodstock IL", label: "Gutter Cleaning · Before", featured: false },
-              { src: "/images/deckstain2.jpg", alt: "Deck staining result Woodstock IL", label: "Deck Staining · After", featured: false },
+              { src: "/images/roof_wash_1.jpeg", alt: "Deck staining result Woodstock IL", label: "Deck Staining · After", featured: false },
               { src: "/images/roof_wash_1.jpeg", alt: "Roof washing before and after", label: "Roof Washing", featured: false },
               { src: "/images/patio 3 .jpeg", alt: "Pressure washing patio Woodstock IL", label: "Pressure Washing", featured: false },
             ].map((photo, i) => (

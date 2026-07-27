@@ -12,7 +12,7 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Image src="/images/logo.png" alt="Rob's Exterior Services" width={180} height={70} className="h-16 w-auto mb-4" />
+            <Image src="/images/logo transparent.png" alt="Rob's Exterior Services" width={180} height={70} className="h-16 w-auto mb-4" />
             <p className="text-[10px] text-brand-gold tracking-[4px] uppercase mb-4">Woodstock's Exterior Experts</p>
             <p className="text-sm text-white/40 leading-relaxed mb-6">
               Locally owned and operated by Robert Morales. Serving Woodstock, IL and all of McHenry County with professional exterior cleaning and maintenance.
