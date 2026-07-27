@@ -10,114 +10,135 @@ export default function Nav() {
   const [servicesOpen, setServicesOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
+    const fn = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', fn, { passive: true })
+    return () => window.removeEventListener('scroll', fn)
   }, [])
 
+  const navStyle: React.CSSProperties = {
+    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+    height: 76,
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '0 40px',
+    transition: 'background 0.3s, box-shadow 0.3s',
+    background: scrolled ? 'rgba(8,8,8,0.97)' : 'transparent',
+    backdropFilter: scrolled ? 'blur(12px)' : 'none',
+    borderBottom: scrolled ? '1px solid rgba(201,168,76,0.25)' : '1px solid transparent',
+  }
+
+  const linkStyle: React.CSSProperties = {
+    fontFamily: 'Oswald, sans-serif', fontSize: 11, fontWeight: 700,
+    letterSpacing: '2.5px', textTransform: 'uppercase',
+    color: 'rgba(255,255,255,0.7)', textDecoration: 'none', transition: 'color 0.2s',
+  }
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[#080808]/95 backdrop-blur-md border-b border-[#C9A84C]/30 shadow-[0_4px_40px_rgba(0,0,0,0.6)]' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
-        
-        <Link href="/" aria-label="Rob's Exterior Services">
-          <Image
-            src="/images/logo transparent.png"
-            alt="Rob's Exterior Services"
-            width={180}
-            height={70}
-            className="h-14 w-auto object-contain"
-            priority
-          />
-        </Link>
+    <header style={navStyle}>
+      <Link href="/">
+        <Image src="/images/logo transparent.png" alt="Rob's Exterior Services"
+          width={160} height={65} style={{ height: 52, width: 'auto', objectFit: 'contain' }} priority />
+      </Link>
 
-        {/* Desktop */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
-          <div className="relative group"
-            onMouseEnter={() => setServicesOpen(true)}
-            onMouseLeave={() => setServicesOpen(false)}
-          >
-            <Link href="/services" className="flex items-center gap-1.5 text-[11px] font-bold tracking-[2.5px] uppercase text-white/70 hover:text-white transition-colors">
-              Services
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </Link>
-
-            {servicesOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-[#111] border border-[#2a2a2a] rounded-lg shadow-2xl overflow-hidden z-50">
-                <div className="p-2">
-                  {services.map(s => (
-                    <Link key={s.slug} href={`/services/${s.slug}`}
-                      className="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#1a1a1a] transition-colors group/item"
-                    >
-                      <span className="text-lg">{s.icon}</span>
-                      <span className="text-sm font-semibold text-white/70 group-hover/item:text-white transition-colors">{s.name}</span>
-                    </Link>
-                  ))}
-                </div>
-                <div className="border-t border-[#2a2a2a] p-3">
-                  <Link href="/services" className="block text-center text-[10px] font-bold tracking-[2px] uppercase text-[#C9A84C] hover:text-[#E8C96A] transition-colors py-1">
-                    View All Services →
+      {/* Desktop nav */}
+      <nav style={{ display: 'flex', alignItems: 'center', gap: 36 }} className="desktop-nav">
+        {/* Services dropdown */}
+        <div style={{ position: 'relative' }}
+          onMouseEnter={() => setServicesOpen(true)}
+          onMouseLeave={() => setServicesOpen(false)}>
+          <Link href="/services" style={{ ...linkStyle, display: 'flex', alignItems: 'center', gap: 4 }}>
+            Services
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </Link>
+          {servicesOpen && (
+            <div style={{
+              position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+              marginTop: 12, width: 260,
+              background: '#111', border: '1px solid #2a2a2a', borderRadius: 8,
+              boxShadow: '0 20px 60px rgba(0,0,0,0.6)', overflow: 'hidden', zIndex: 100,
+            }}>
+              <div style={{ padding: 8 }}>
+                {services.map(s => (
+                  <Link key={s.slug} href={`/services/${s.slug}`} style={{
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '10px 16px', borderRadius: 6,
+                    fontFamily: 'Lato, sans-serif', fontSize: 14, fontWeight: 600,
+                    color: 'rgba(255,255,255,0.7)', transition: 'background 0.2s',
+                  }}
+                    onMouseEnter={e => (e.currentTarget.style.background = '#1a1a1a')}
+                    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                  >
+                    <span style={{ fontSize: 18 }}>{s.icon}</span>
+                    {s.name}
                   </Link>
-                </div>
+                ))}
               </div>
-            )}
-          </div>
+              <div style={{ borderTop: '1px solid #2a2a2a', padding: '10px 16px' }}>
+                <Link href="/services" style={{
+                  display: 'block', textAlign: 'center',
+                  fontFamily: 'Oswald, sans-serif', fontSize: 10, fontWeight: 700,
+                  letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A84C',
+                }}>View All Services →</Link>
+              </div>
+            </div>
+          )}
+        </div>
 
-          {[
-            { href: '/about', label: 'About' },
-            { href: '/gallery', label: 'Gallery' },
-            { href: '/locations', label: 'Service Areas' },
-          ].map(link => (
-            <Link key={link.href} href={link.href}
-              className="text-[11px] font-bold tracking-[2.5px] uppercase text-white/70 hover:text-white transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <Link href="/about" style={linkStyle}>About</Link>
+        <Link href="/gallery" style={linkStyle}>Gallery</Link>
+        <Link href="/locations" style={linkStyle}>Service Areas</Link>
 
-          <a href="sms:+18154510106"
-            className="bg-[#C9A84C] text-[#0A0A0A] font-bold text-[12px] tracking-[2px] uppercase px-6 py-3 rounded-sm hover:bg-[#E8C96A] transition-colors"
-            style={{ fontFamily: 'Oswald, sans-serif' }}
-          >
-            Text for a Quote
-          </a>
-        </nav>
+        <a href="sms:+18154510106" style={{
+          fontFamily: 'Oswald, sans-serif', fontSize: 12, fontWeight: 700,
+          letterSpacing: '2px', textTransform: 'uppercase',
+          background: '#C9A84C', color: '#0A0A0A',
+          padding: '12px 24px', borderRadius: 3, textDecoration: 'none',
+          transition: 'background 0.2s',
+        }}>Text for a Quote</a>
+      </nav>
 
-        {/* Hamburger */}
-        <button className="lg:hidden p-2 flex flex-col gap-[5px]" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
-          <span className={`block w-6 h-0.5 bg-white transition-all ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-white transition-all ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block w-6 h-0.5 bg-white transition-all ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
-        </button>
-      </div>
+      {/* Hamburger */}
+      <button onClick={() => setMenuOpen(!menuOpen)} className="hamburger-btn"
+        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'none', flexDirection: 'column', gap: 5 }}>
+        {[0,1,2].map(i => (
+          <span key={i} style={{
+            display: 'block', width: 24, height: 2, background: 'white', borderRadius: 2,
+            transition: 'all 0.3s',
+            transform: menuOpen ? (i === 0 ? 'rotate(45deg) translate(5px,5px)' : i === 2 ? 'rotate(-45deg) translate(5px,-5px)' : '') : '',
+            opacity: menuOpen && i === 1 ? 0 : 1,
+          }} />
+        ))}
+      </button>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-[#0f0f0f] border-t border-[#2a2a2a]">
-          <div className="px-6 py-6 flex flex-col gap-4">
-            <Link href="/services" onClick={() => setMenuOpen(false)} className="text-[11px] font-bold tracking-[3px] uppercase text-white/60 py-2">Services</Link>
-            {services.map(s => (
-              <Link key={s.slug} href={`/services/${s.slug}`} onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-3 pl-4 text-sm text-white/40 hover:text-white py-1"
-              >
-                <span>{s.icon}</span><span>{s.name}</span>
-              </Link>
-            ))}
-            <div className="border-t border-[#2a2a2a] pt-4 flex flex-col gap-4">
-              <Link href="/about" onClick={() => setMenuOpen(false)} className="text-[11px] font-bold tracking-[3px] uppercase text-white/60">About</Link>
-              <Link href="/gallery" onClick={() => setMenuOpen(false)} className="text-[11px] font-bold tracking-[3px] uppercase text-white/60">Gallery</Link>
-              <Link href="/locations" onClick={() => setMenuOpen(false)} className="text-[11px] font-bold tracking-[3px] uppercase text-white/60">Service Areas</Link>
-              <a href="sms:+18154510106" className="bg-[#C9A84C] text-[#0A0A0A] font-bold text-[12px] tracking-[2px] uppercase px-6 py-4 rounded-sm text-center mt-2"
-                style={{ fontFamily: 'Oswald, sans-serif' }}>
-                Text for a Quote
-              </a>
-            </div>
-          </div>
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, right: 0,
+          background: '#0f0f0f', borderTop: '1px solid #2a2a2a',
+          padding: '24px 28px', display: 'flex', flexDirection: 'column', gap: 16,
+        }} className="mobile-menu">
+          {[{href:'/services',label:'Services'},{href:'/about',label:'About'},{href:'/gallery',label:'Gallery'},{href:'/locations',label:'Service Areas'}].map(l => (
+            <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)} style={{
+              fontFamily: 'Oswald, sans-serif', fontSize: 11, fontWeight: 700,
+              letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.6)',
+            }}>{l.label}</Link>
+          ))}
+          <a href="sms:+18154510106" style={{
+            fontFamily: 'Oswald, sans-serif', fontSize: 13, fontWeight: 700,
+            letterSpacing: '2px', textTransform: 'uppercase',
+            background: '#C9A84C', color: '#0A0A0A',
+            padding: '16px 24px', borderRadius: 3, textAlign: 'center', marginTop: 8,
+          }}>Text for a Quote</a>
         </div>
       )}
+
+      <style>{`
+        @media (max-width: 1024px) {
+          .desktop-nav { display: none !important; }
+          .hamburger-btn { display: flex !important; }
+        }
+      `}</style>
     </header>
   )
 }

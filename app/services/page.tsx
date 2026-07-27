@@ -11,71 +11,58 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-40 pb-24 bg-brand-black overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(201,168,76,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(201,168,76,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <nav aria-label="Breadcrumb" className="flex justify-center mb-6">
-            <ol className="flex items-center gap-2 text-xs text-white/30 tracking-wide">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
+      <section style={{ padding: '140px 0 80px', background: '#0A0A0A', position: 'relative' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <nav style={{ marginBottom: 32 }}>
+            <ol style={{ display: 'flex', gap: 8, fontSize: 12, color: 'rgba(255,255,255,0.3)', listStyle: 'none' }}>
+              <li><Link href="/" style={{ color: 'rgba(255,255,255,0.3)' }}>Home</Link></li>
               <li>/</li>
-              <li className="text-brand-gold">Services</li>
+              <li style={{ color: '#C9A84C' }}>Services</li>
             </ol>
           </nav>
-          <p className="section-label mb-4">Woodstock, IL · McHenry County</p>
-          <h1 className="font-display font-black text-[clamp(48px,8vw,96px)] uppercase tracking-tight leading-[0.95] mb-6">
+          <p className="eyebrow" style={{ marginBottom: 20 }}>Woodstock, IL · McHenry County</p>
+          <h1 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 'clamp(48px,8vw,96px)', textTransform: 'uppercase', lineHeight: 0.95, letterSpacing: '-1px', marginBottom: 24 }}>
             Our <span className="gold-text">Services</span>
           </h1>
-          <div className="flex items-center gap-4 justify-center mb-8">
-            <span className="w-16 h-px bg-brand-gold/40" />
-            <span className="text-brand-gold/50 text-[9px] tracking-[4px] uppercase">Professional Exterior Cleaning</span>
-            <span className="w-16 h-px bg-brand-gold/40" />
-          </div>
-          <p className="text-white/50 text-xl leading-relaxed max-w-2xl mx-auto">
+          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.45)', maxWidth: 580, lineHeight: 1.7 }}>
             From the roof to the driveway, Rob handles everything on the outside of your home — with honest pricing, no subcontractors, and results you'll notice immediately.
           </p>
         </div>
       </section>
 
-      {/* Services grid */}
-      <section className="py-24 bg-brand-dark">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {services.map((service, i) => (
-              <Link
-                key={service.slug}
-                href={`/services/${service.slug}`}
-                className="group bg-brand-card border border-brand-border hover:border-brand-gold/40 rounded-sm p-10 flex gap-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_40px_rgba(201,168,76,0.08)] relative overflow-hidden"
-              >
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-brand-dark border border-brand-border rounded-sm flex items-center justify-center text-3xl group-hover:border-brand-gold/40 transition-colors">
-                    {service.icon}
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-3">
-                    <h2 className="font-display font-bold text-2xl text-white uppercase tracking-wide group-hover:text-brand-gold transition-colors">
+      <section style={{ padding: '80px 0', background: '#0d0d0d' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(480px,1fr))', gap: 16 }}>
+            {services.map(service => (
+              <Link key={service.slug} href={`/services/${service.slug}`} style={{
+                background: '#111', border: '1px solid #1e1e1e', borderRadius: 4,
+                padding: '40px 36px', display: 'flex', gap: 28, textDecoration: 'none',
+                transition: 'border-color 0.2s',
+              }}>
+                <div style={{
+                  width: 64, height: 64, background: '#1a1a1a', border: '1px solid #2a2a2a',
+                  borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: 28, flexShrink: 0,
+                }}>{service.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                    <h2 style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 22, textTransform: 'uppercase', letterSpacing: '1px', color: '#fff' }}>
                       {service.name}
                     </h2>
                     {service.startingPrice && (
-                      <span className="font-display font-bold text-xl text-brand-gold ml-4 flex-shrink-0">
-                        {service.startingPrice}+
-                      </span>
+                      <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 900, fontSize: 22, color: '#C9A84C' }}>{service.startingPrice}+</span>
                     )}
                   </div>
-                  <p className="text-brand-gold/70 text-sm font-semibold uppercase tracking-wide mb-3">{service.tagline}</p>
-                  <p className="text-white/50 text-sm leading-relaxed mb-4">{service.heroDesc}</p>
-                  <span className="text-[11px] font-bold tracking-[2px] uppercase text-brand-gold/60 group-hover:text-brand-gold transition-colors">
-                    Full Details →
-                  </span>
+                  <p style={{ fontSize: 13, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: 10 }}>{service.tagline}</p>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', lineHeight: 1.65, marginBottom: 16 }}>{service.heroDesc}</p>
+                  <span style={{ fontFamily: 'Oswald, sans-serif', fontWeight: 700, fontSize: 11, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(201,168,76,0.6)' }}>Full Details →</span>
                 </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
-
       <CTAStrip />
     </>
   )
